@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AddonsService } from './addons.service';
 import { CreateAddonDto } from './dto/create-addon.dto';
 import { UpdateAddonDto } from './dto/update-addon.dto';
@@ -7,10 +15,10 @@ import { UpdateAddonDto } from './dto/update-addon.dto';
 export class AddonsController {
   constructor(private readonly addonsService: AddonsService) {}
 
-  @Post()
-  create(@Body() createAddonDto: CreateAddonDto) {
-    return this.addonsService.create(createAddonDto);
-  }
+  // @Post()
+  // create(@Body() createAddonDto: CreateAddonDto) {
+  //   return this.addonsService.create(createAddonDto);
+  // }
 
   @Get()
   findAll() {

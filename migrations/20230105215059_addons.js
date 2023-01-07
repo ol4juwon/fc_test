@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('addons', (table) => {
     table.increments('id').primary();
-    table.string('name', 40).notNullable();
+    table.string('name', 40).notNullable().unique();
     table.text('description').nullable();
     table.integer('price').notNullable();
     table

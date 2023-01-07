@@ -18,6 +18,7 @@ export class Addon extends Model {
     type: columnTypes.string,
     nullable: false,
     length: 40,
+    unique: true,
   })
   name: string;
 
