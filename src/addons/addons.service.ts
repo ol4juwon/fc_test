@@ -1,28 +1,36 @@
 import {
+  BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { InjectModel } from 'nestjs-objection/dist';
-import { queryType } from 'src/types';
+import { queryType, RemoveAddon, updateAddon } from 'src/types';
 import { CreateAddonDto } from './dto/create-addon.dto';
 import { UpdateAddonDto } from './dto/update-addon.dto';
 import { Addon } from './model/addon.model';
 
 @Injectable()
 export class AddonsService {
+  private readonly logger = new Logger(AddonsService.name);
   constructor(@InjectModel(Addon) private addonModel) {}
   async create(createAddonDto: CreateAddonDto) {
     try {
       // console.log(createAddonDto);
+      this.logger.debug(createAddonDto);
       const response = await this.addonModel.query().insert(createAddonDto);
       console.log('response', response);
-      response.category = response.category.join(', ');
       return { data: response };
     } catch (error) {
-      console.log(error.nativeError.sqlMessage, error.message);
+      console.log(
+        error?.nativeError?.detail,
+        Object.keys(error),
+        error?.nativeError?.sqlMessage,
+      );
       return {
         error:
+          error?.nativeError?.detail ||
           error.nativeError.sqlMessage ||
           error.message ||
           error.nativeError ||
@@ -40,11 +48,9 @@ export class AddonsService {
   async getAddons({
     id,
     query: { limit = 1, page = 1, sortBy = 'name', order = 'DESC' },
-    addonId,
   }: queryType) {
     try {
       const q: any = { brands_id: id };
-      if (addonId) q.id = addonId;
       const response = await this.addonModel
         .query()
         .select()
@@ -84,11 +90,34 @@ export class AddonsService {
     return `This action returns a #${id} addon`;
   }
 
-  update(id: number, updateAddonDto: UpdateAddonDto) {
-    return `This action updates a #${id} addon`;
+  async update(id: number, brands_id: number, updateAddonDto: updateAddon) {
+    this.logger.debug('e', `${updateAddonDto.payload}`);
+    try {
+      // const payload = {}
+      const response = await this.addonModel
+        .query()
+        .select('*')
+        .update(updateAddonDto.payload)
+        .where({ id: id, brands_id });
+      this.logger.debug('dd', `${response}`);
+      if (response != 1) throw new UnprocessableEntityException();
+      return { data: response };
+    } catch (error) {
+      return { error: error.response || error.nativeError || error };
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} addon`;
+  async remove({ brandId, addonId }: RemoveAddon) {
+    try {
+      const response = await this.addonModel
+        .query()
+        .delete()
+        .where({ brands_id: brandId, id: addonId });
+      console.log('lo', response);
+      if (response == 0) throw new BadRequestException('Addon not found');
+      if (response) return { data: response };
+    } catch (error) {
+      return { error: error.response || error };
+    }
   }
 }

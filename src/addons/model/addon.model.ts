@@ -36,16 +36,21 @@ export class Addon extends Model {
   @Column({ columnName: 'brands_id', type: columnTypes.integer })
   brands_id: number;
 
-  @Relation({
-    modelClass: Category,
-    relation: relationTypes.HasManyRelation,
-    join: { from: 'addons.id', to: 'category.addons_id' },
+  @Column({
+    columnName: 'category',
+    type: columnTypes.string,
+    nullable: true,
+    length: 40,
   })
-  category: Category[];
+  category: string;
 
   @Column({ type: columnTypes.timestamp })
   created_at: string;
 
   @Column({ type: columnTypes.timestamp })
   updated_at: string;
+
+  async $beforeUpdate(opt, queryContext) {
+    this.updated_at = new Date().toISOString();
+  }
 }

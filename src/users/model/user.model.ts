@@ -23,10 +23,14 @@ export class User extends Model {
   isActive: boolean;
 
   @Column({ columnName: 'roles', type: columnTypes.string, notNullable: true })
-  roles: string;
+  roles: string[];
   @Column({ type: columnTypes.timestamp })
   created_at: string;
 
   @Column({ type: columnTypes.timestamp })
   updated_at: string;
+
+  async $beforeUpdate(opt, queryContext) {
+    this.updated_at = new Date().toISOString();
+  }
 }

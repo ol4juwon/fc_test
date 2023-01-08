@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -11,6 +11,7 @@ import { User } from './users/model/user.model';
 import { Brand } from './brands/model/brand.model';
 import { Category } from './category/model/category.model';
 import { Addon } from './addons/model/addon.model';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -19,17 +20,19 @@ import { Addon } from './addons/model/addon.model';
     UsersModule,
     AddonsModule,
     CategoryModule,
+    ConfigModule.forRoot(),
     ObjectionModule.forRootAsync({
       useFactory: () => ({
         Model,
         config: {
-          client: 'mysql',
+          client: 'pg',
           useNullAsDefault: true,
           connection: {
-            host: process.env.DATABASE_HOST || '127.0.0.1',
-            user: process.env.DATABASE_USER || 'ola',
-            password: process.env.DATABASE_PASS || 'concheradmin',
-            database: process.env.DATABASE_NAME || 'foodcourt',
+            host: '127.0.0.1',
+            port: 5432,
+            user: 'concher_admin',
+            password: 'concher1234',
+            database: 'foodcourt',
           },
         },
       }),

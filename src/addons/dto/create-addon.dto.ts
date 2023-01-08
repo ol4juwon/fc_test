@@ -5,7 +5,6 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
-import { Category } from 'src/category/model/category.model';
 
 export class CreateAddonDto {
   @IsString()
@@ -24,7 +23,7 @@ export class CreateAddonDto {
   @IsPositive()
   brands_id: number;
 
-  @IsArray()
+  @IsString()
   @IsOptional()
-  category: Category[];
+  category: string;
 }

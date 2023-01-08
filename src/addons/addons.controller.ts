@@ -30,13 +30,13 @@ export class AddonsController {
     return this.addonsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAddonDto: UpdateAddonDto) {
-    return this.addonsService.update(+id, updateAddonDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateAddonDto: UpdateAddonDto) {
+  //   return this.addonsService.update(+id, updateAddonDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.addonsService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.addonsService.remove(+id);
+  // }
 }

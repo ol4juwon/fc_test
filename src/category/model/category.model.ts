@@ -10,9 +10,15 @@ export class Category extends Model {
   @Column({ columnName: 'name', type: columnTypes.string })
   name: string;
 
+  @Column({ columnName: 'brands_id', type: columnTypes.integer })
+  brands_id: number;
+
   @Column({ type: columnTypes.timestamp })
   created_at: string;
 
   @Column({ type: columnTypes.timestamp })
   updated_at: string;
+  async $beforeUpdate(opt, queryContext) {
+    this.updated_at = new Date().toISOString();
+  }
 }

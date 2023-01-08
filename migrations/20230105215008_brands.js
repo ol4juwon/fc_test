@@ -11,8 +11,8 @@ exports.up = function (knex) {
       .timestamp('created_at', { precision: 6, useTz: true })
       .defaultTo(knex.fn.now(6));
     table
-      .timestamp('updated_at')
-      .defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+      .timestamp('updated_at', { precision: 6, useTz: true })
+      .defaultTo(knex.raw('CURRENT_TIMESTAMP'));
   });
 };
 

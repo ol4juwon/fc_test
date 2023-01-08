@@ -28,4 +28,8 @@ export class Brand extends Model {
 
   @Column({ type: columnTypes.timestamp })
   updated_at: string;
+
+  async $beforeUpdate(opt, queryContext) {
+    this.updated_at = new Date().toISOString();
+  }
 }

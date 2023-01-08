@@ -6,5 +6,25 @@ export interface queryType {
     sortBy?: string;
     order: 'DESC' | 'ASC';
   };
-  addonId?: number;
 }
+export type updateAddon = {
+  brands_id: number;
+  addonId: number;
+  payload: {
+    name?: string;
+    price?: number;
+    description?: string;
+    category?: string[];
+  };
+};
+
+export type Addon = {
+  name: string;
+  price: number;
+  description?: string;
+  category?: string[];
+};
+export type RemoveAddon = {
+  brandId: number;
+  addonId: number;
+};

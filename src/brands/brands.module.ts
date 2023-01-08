@@ -5,10 +5,12 @@ import { AddonsService } from 'src/addons/addons.service';
 import { ObjectionModule } from 'nestjs-objection/dist';
 import { Brand } from './model/brand.model';
 import { Addon } from 'src/addons/model/addon.model';
+import { Category } from 'src/category/model/category.model';
+import { CategoryService } from 'src/category/category.service';
 
 @Module({
   controllers: [BrandsController],
-  providers: [BrandsService, AddonsService],
-  imports: [ObjectionModule.forFeature([Brand, Addon])],
+  providers: [BrandsService, AddonsService, CategoryService],
+  imports: [ObjectionModule.forFeature([Brand, Addon, Category])],
 })
 export class BrandsModule {}

@@ -3,21 +3,21 @@
  */
 module.exports = {
   development: {
-    client: 'mysql',
+    client: 'pg',
     connection: {
       host: '127.0.0.1',
-      user: 'ola',
-      password: 'concheradmin',
+      user: 'concher_admin',
+      password: 'concher1234',
       database: 'foodcourt',
     },
   },
 
   staging: {
-    client: 'mysql',
+    client: 'pg',
     connection: {
       host: '127.0.0.1',
-      user: 'ola',
-      password: 'concheradmin',
+      user: 'concher_admin',
+      password: 'concher1234',
       database: 'foodcourt',
     },
     pool: {
