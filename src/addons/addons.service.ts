@@ -99,8 +99,11 @@ export class AddonsService {
         .select('*')
         .update(updateAddonDto.payload)
         .where({ id: id, brands_id });
-      this.logger.debug('dd', `${response}`);
-      if (response != 1) throw new UnprocessableEntityException();
+      console.log('dd', `${response}`);
+      if (response != 1)
+        throw new UnprocessableEntityException(
+          "Can update this addon because it doesn't exist",
+        );
       return { data: response };
     } catch (error) {
       return { error: error.response || error.nativeError || error };

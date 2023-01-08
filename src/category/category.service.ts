@@ -14,6 +14,12 @@ export class CategoryService {
    */
   async create(createCategoryDto: CreateCategoryDto) {
     try {
+      const exist = await this.catModel.query().select().where({
+        name: createCategoryDto.name,
+        brands_id: createCategoryDto.brands_id,
+      });
+      console.log('exists', exist[0]);
+      if (exist[0]) return { error: 'category for brand already exist' };
       const response = await this.catModel.query().insert(createCategoryDto);
       return { data: response };
     } catch (error) {

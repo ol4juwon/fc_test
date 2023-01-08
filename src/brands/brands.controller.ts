@@ -60,7 +60,7 @@ export class BrandsController {
       const { error, data } = await this.brandsService.createCategory(
         createCategoryDto,
       );
-      if (error) res.status(HttpStatus.BAD_REQUEST).send({ error });
+      if (error) return res.status(HttpStatus.BAD_REQUEST).send({ error });
       return res.status(HttpStatus.CREATED).send({ data });
     } catch (e) {
       return res.status(HttpStatus.BAD_GATEWAY).send({ error: e });
