@@ -1,39 +1,30 @@
-# Wallet Service
+# Adon Service
 ## Hosted on Heroku 
-[ol4-Wallet](https://ol4-wallet.herokuapp.com/api/v1)
+[](https:///api/v1)
 
 ## Tools
 - **Nodejs**
 - **Nestjs**
 - **Typescript**
-- **Mysql** - SQL Database
+- **POSTGRESQL** - SQL Database
 - **Jest** Test framework
 - **Supertest** Test framework
-- **Docker** Container
 - **Knexjs** DB Migration
 - **ObjectionJS** ORM
-- **Paystack** Payment bed
 
 ## Endpoints
 - Users [/users]
   1. Register new user [/register][POST]
   2. login [/login][POST]
-  3. Get all users [/?queries][GET]
-- Wallet [/wallet]
-  1. get user wallet[/:id][GET]
-  2. Get all users [/?queries][GET]
-  3. Fund Account(initial) [/fund/card/init][POST]
-  4. Fund Account(charge card auth) [/fund/card/charge][POST]
-  5. Withdraw [/withdraw/init][POST]
-  6. Withdraw [/withdraw/final][POST]
-  7. Transfer to user [/transfer/user][POST]
-  8. Add Bank/Recipient [/bank/][POST]
-  9. Validate Bank []
+- Brands [/brands]
+  1. Add brands[/][POST]
+  2. Add Addons [/brands/:brandId/addons][POST]
+  3. Get Addons [/brands/:brandId/addons][POST]
+  4. GET Addon [/brands/:brandId/addons/:addonId][GET]
+  5. UPDATE ADDON [/brands/:brandId/addons/:addonId][PATCH]
+  6. Delete Addon [/brands/:brandId/addons/:addonId][DELETE]
+  7. Add Categroy [/brands/:brandId/addon-categories:][POST]
 
-## E-R Diagram
-<p align="center" background='blue'>
-  <img src="er.png" width="450" title="hover text">
-</p>
 
 ## Environment Variables
 1. JWT_SECRET
@@ -53,3 +44,9 @@ npm run install - to install all dependecies
 npx knex migrate:latest - To run migrations
 npm run test - to run tests
 npm run start:dev - to run in dev environment
+register an account and specify roles.
+login to generate a token...
+use the token to validate request as Bearer Token
+
+## PostMan Doc
+[POSTMAN](https://elements.getpostman.com/redirect?entityId=14081034-6cdb9f12-54d0-422b-8a50-89a66172490e&entityType=collection)
